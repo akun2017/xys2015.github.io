@@ -1,0 +1,217 @@
+===================================
+第4天 周4 20180712 授课老师-李泳谊
+作者: 邢永胜
+===================================
+
+1. 思想  
+如何记住？ 
+经常使用，回忆，通过题目回忆之前的内容，操作
+
+什么是真的会了？
+熟练的操作，能够解决故障，写出来，说出来
+
+如何做？
+输入 -->  输出  -->  纠正，闭环学习方案
+详细学习流程：https://www.processon.com/view/link/5a29ddb1e4b0dce08037562e
+
+(14.30 - 15:00)
+
+
+2. vmware-虚拟机-网络类型-区别
+今天是简单说，以后会详细说。
+三种模式：桥接模式，NAT，仅主机。
+## NAT模式
+    PC            皇帝
+    NAT           宰相
+    CentOS虚拟机  贫民
+好处：
+    1) 每台电脑的局域网独立
+    2) 每个人的IP地址可以相同
+缺点：
+    1) 配置稍显复杂
+    
+## 桥接模式
+    PC   皇帝
+    虚拟机 贫民
+    皇帝和贫民平起平坐
+好处
+    配置简单
+缺点
+    IP地址会随着环境变化，每个人都会占用当前环境中的IP地址。
+    
+## 仅主机模式(host-only)
+PC  皇帝
+虚拟机  平民
+仅主机模式下，虚拟机无法访问互联网，只能访问主机。
+
+(15:00 - 15:30)
+
+3. Linux命令行特点
+
+3.1 命令行结构
+[root@oldboy1 ~]# 
+[root@oldboy1 ~]# 
+root 当前用户名
+oldboy1 主机名
+~ 当前路径位置
+# 代表root用户
+
+3.2 如何优雅的使用空格和TAB键
+
+3.3 Linux目录结构
+
+一切从根开始  口诀：一切文件皆根下，严格区分大小写
+
+3.4 命令格式
+
+命令 空格 参数 对象 
+
+TAB键的功能是自动补全
+
+(15:30 - 15:45)
+
+4. Linux基本命令
+
+使用 man  command_name 可以查看命令的帮助，这里顺手就可以
+看到命令的英文组成 
+
+mkdir ls cd pwd
+
+创建一个目录 /data  mkdir /data
+
+ls  查看目录的内容
+ls -l 显示详细信息
+
+移动到指定目录 cd directory
+
+查看当前目录 pwd
+
+1) 显示IP地址
+    ip a == ip address
+    ifconfig
+2) 创建目录
+
+cp /data/oldboy.txt /tmp/
+cp -r dir 递归复制
+cp -a
+-a === -pdr
+		-p 复制保持属性不变
+		-d 软连接相关
+		-r 递归
+		
+如何查询帮助 ？
+1. man command_name
+2. command --help
+
+创建新文件的方法 ？
+1. tuoch
+2. echo
+3. vim
+
+(15:45 - 16:15)
+(16:18 - 16:39)
+(18:14 - 18:50)
+
+5. 绝对路径与相对路径
+
+绝对路径：从根开始的是绝对路径
+相对路径：不是从根开始的路径是相对路径
+
+(16:15 - 16:18)
+
+6. vim
+
+vi filename
+进入编辑模式，i
+进行编辑
+编辑完成，ESC > :wq 保存并退出
+
+强制退出 q! (不保存刚被修改的内容)
+
+w 保存
+
+显示文件内容 cat filename
+
+(16:39 - 16:55)
+
+7. 重定向符号（一共7个）
+
+1) 追加重定向
+    echo "www.lidao.com" >> /data/oldboy.txt
+    向漏斗一样，把内容追加到指定文件里
+    
+2) 清空重定向 (覆盖重定向)
+    echo "www.lidao.com" > /data/oldboy.txt
+    
+3) 向文件中追加多行
+cat >>/data/oldboy.txt<<EOF
+I 
+am
+studying
+linux
+EOF
+
+>>   追加重定向             (或 1>>)
+>    重定向(旧内容会被覆盖) (或 1>)
+2>>  错误追加重定向
+2>   错误重定向(原来的内容会被覆盖)
+2>&1 正确信息和错误信息都会被记录下来
+
+<    输入重定向     从某个文件中读取数据  (或 0<)
+<<   追加输入重定向 基本就是用来追加多行  (或 0<<)
+
+[root@oldboy1 data]# liosx 2>> oldboy.txt
+[root@oldboy1 data]# cat oldboy.txt
+-bash: liosx: command not found
+
+echo oldboy 2>> /data/oldboy.txt >> /data/oldboy.txt
+                错误走这里          正确走这里
+				
+lida         >>       /data/oldboy.txt  2>&1
+echo lidao   >>       /data/oldboy.txt  2>&1
+ls -l        >>       /data/oldboy.txt  2>&1
+
+把文件内容按列输出
+    echo '1 2 3 4 5 6 7' > /data/lidao.txt
+    [root@oldboy1 data]# xargs -n2 < /data/lidao.txt
+    1 2
+    3 4
+    5 6
+    7
+
+
+(17:16 - 18:14)
+
+
+# 其它
+
+Linux命令行快捷键
+1. Tab 自动补全
+2. Ctrl + L 清屏(相当于Clear)
+3. CTRL + C 取消当前操作
+
+Xshell增大历史命令保存的行数。
+Xshell > 终端 > 缓存区大小，调整为20行
+
+Xshell打开日志记录
+右键黑窗 > log > Open log floder
+
+双击Xshell的标签，可以点开第2个相同的窗口
+
+# 总结
+    1. 学习套路
+    2. vmware网络模式，NAT，桥接
+    3. 入学三大件：命令行结构，命令格式，linux目录结构
+    4. 一堆命令
+    5. vim 编辑文件
+    6. 重定向符号(7个)
+
+# 预习
+    1. 命令
+    2. 管道符
+    3. find
+    4. grep sed (三剑客之二)
+
+# 今天收获
+
+进度，快慢，边界，多亏老师带。
